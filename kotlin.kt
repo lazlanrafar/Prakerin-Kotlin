@@ -1,26 +1,7 @@
 fun main(args: Array<String>) {
-    welcome()
-    print("Masukan Nama Anda : ")
-    val nama = readLine()!!
-    printgender()
-    var gender = readLine()!!
-    when(gender){
-        "1" -> gender = "Laki-Laki"
-        "2" -> gender = "Perempuan"
-        "3" -> gender = "Transgender"
-        else -> gender = "Tidak Mau Menyebutkan"
-    }
-    print("Masukan Umur Anda : ")
-    val umur = readLine()!!
-    print("Masukan Asal Sekolah : ")
-    val sekolah = readLine()!!
-    printbidang()
-    val bidang = readLine()!!
-    val out = output("$nama","$gender","$umur","$sekolah","$bidang")
-    out.tampil()
-    out.finish()
+    proses()
 }
-fun welcome(){
+fun proses(){
     println("""
     =================================================
          SELAMAT DATANG CALON PESERTA DIDIK BARU      
@@ -32,8 +13,8 @@ fun welcome(){
                             -
 
     """.trimIndent())
-}
-fun printgender(){
+    print("Masukan Nama Anda : ")
+    val nama = readLine()!!
     print("""
     Jenis Kelamin Anda :
         (1) Laki-Laki
@@ -42,8 +23,17 @@ fun printgender(){
         (4) Tidak Mau Menyebutkan
     Pilih : 
     """.trimIndent())
-}
-fun printbidang(){
+    var gender = readLine()!!
+    when(gender){
+        "1" -> gender = "Laki-Laki"
+        "2" -> gender = "Perempuan"
+        "3" -> gender = "Transgender"
+        else -> gender = "Tidak Mau Menyebutkan"
+    }
+    print("Masukan Umur Anda : ")
+    val umur = readLine()!!
+    print("Masukan Asal Sekolah : ")
+    val sekolah = readLine()!!
     print("""
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
@@ -57,6 +47,10 @@ fun printbidang(){
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     Pilih : 
     """.trimIndent())
+    val bidang = readLine()!!
+    val out = output("$nama","$gender","$umur","$sekolah","$bidang")
+    out.tampil()
+    konfirmasi("$nama")
 }
 class output(val nama : String,val gender : String,val umur : String,val sekolah : String,val bidang : String){
     val pilih = mapOf<String,String>(
@@ -77,11 +71,21 @@ class output(val nama : String,val gender : String,val umur : String,val sekolah
         *************************************************
         """.trimIndent())
     }
-    fun finish(){
-        println("""
-        ***************************************************   
-        * $nama ,SELAMAT ANDA SUDAH TERDAFTAR             *
-        ***************************************************
-        """.trimIndent())
+}
+fun konfirmasi(nama : String){
+    print("Apakah data yang dimasukan Benar?(y/n):")
+    val yn = readLine()
+    if(yn == "y"){
+        println("Succesfull")
+        finish("$nama")
+    }else{
+        proses()
     }
+}
+fun finish(nama : String){
+    println("""
+    ***************************************************   
+    * $nama ,SELAMAT ANDA SUDAH TERDAFTAR             *
+    ***************************************************
+    """.trimIndent())
 }
