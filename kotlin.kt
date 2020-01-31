@@ -80,7 +80,7 @@ class output(val nama : String,val gender : String,val umur : String,val sekolah
     fun finish(){
         println("""
         ***************************************************   
-        * $nama ,SELAMAT ANDA SUDAH TERDAFTAR *
+        * $nama ,SELAMAT ANDA SUDAH TERDAFTAR             *
         ***************************************************
         """.trimIndent())
     }
