@@ -1,7 +1,7 @@
 fun main(args: Array<String>) {
     proses()
-    val chatbot = helper()
-    chatbot.help()
+    val robot = chatbot()
+    robot.help()
 }
 fun proses(){
     println("""
@@ -16,7 +16,7 @@ fun proses(){
 
     """.trimIndent())
     print("Masukan Nama Anda : ")
-    val nama = readLine()!!
+    val nama = readLine()
     print("""
     Jenis Kelamin Anda :
         (1) Laki-Laki
@@ -25,17 +25,17 @@ fun proses(){
         (4) Tidak Mau Menyebutkan
     Pilih : 
     """.trimIndent())
-    var gender = readLine()!!
+    var gender = readLine()
     when(gender){
         "1" -> gender = "Laki-Laki"
         "2" -> gender = "Perempuan"
         "3" -> gender = "Transgender"
-        else -> gender = "Tidak Mau Menyebutkan"
+        "4" -> gender = "Tidak Mau Menyebutkan"
     }
     print("Masukan Umur Anda : ")
-    val umur = readLine()!!
+    val umur = readLine()
     print("Masukan Asal Sekolah : ")
-    val sekolah = readLine()!!
+    val sekolah = readLine()
     print("""
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
@@ -49,10 +49,22 @@ fun proses(){
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     Pilih : 
     """.trimIndent())
-    val bidang = readLine()!!
-    val out = output("$nama","$gender","$umur","$sekolah","$bidang")
-    out.tampil()
-    konfirmasi("$nama")
+    val bidang = readLine()
+    val kosong = nullable("$nama","$gender","$umur","$sekolah","$bidang")
+    kosong.check()
+
+}
+class nullable(val nama : String?,val gender : String?,val umur : String?,val sekolah : String?,val bidang : String?){
+    fun check(){
+        if(nama == null || gender == null || umur == null || sekolah == null || bidang == null){
+            print("Anda Belum Memasukan Data dengan benar")
+            System.exit(-1)
+        }else{
+            val out = output("$nama","$gender","$umur","$sekolah","$bidang")
+            out.tampil()
+            konfirmasi("$nama")
+        }
+    }
 }
 class output(val nama : String,val gender : String,val umur : String,val sekolah : String,val bidang : String){
     val pilih = mapOf<String,String>(
@@ -77,7 +89,7 @@ class output(val nama : String,val gender : String,val umur : String,val sekolah
 fun konfirmasi(nama : String){
     print("Apakah data yang dimasukan Benar?(y/n):")
     val yn = readLine()
-    if(yn == "y"){
+    if(yn == "y" || yn == "Y"){
         println("Succesfull")
         finish("$nama")
     }else{
@@ -94,7 +106,7 @@ fun finish(nama : String){
     ***************************************************
     """.trimIndent())
 }
-class helper(){
+class chatbot(){
     fun help(){
         print("Apakah Ada Pertanyaan ?(y/n)")
         val faq = readLine()
@@ -105,15 +117,16 @@ class helper(){
         }
     }
     fun quest(){
-        print("Your Question : ")
+        print("-> ")
         val anda = readLine()
         answer("$anda")
     }
     fun answer(anda : String){
         when(anda){
             "kenapa harus disini" -> println("Karena Disi telah terakreditasi A")
-            "apa kenggulan disini" -> println("lulusan sini dah ke luar negri")
+            "apa keunggulan disini" -> println("lulusan sini dah ke luar negri")
             "quit" -> quit()
+            else -> println("Pertanyaan tidak ditemukan")
         }
         quest()
     }
