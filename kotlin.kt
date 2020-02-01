@@ -1,5 +1,7 @@
 fun main(args: Array<String>) {
     proses()
+    val chatbot = helper()
+    chatbot.help()
 }
 fun proses(){
     println("""
@@ -83,9 +85,40 @@ fun konfirmasi(nama : String){
     }
 }
 fun finish(nama : String){
+    val name : String = nama.toUpperCase()
     println("""
-    ***************************************************   
-    * $nama ,SELAMAT ANDA SUDAH TERDAFTAR             *
+    *************************************************** 
+    *  
+    *       $name ,SELAMAT ANDA SUDAH TERDAFTAR             
+    *
     ***************************************************
     """.trimIndent())
+}
+class helper(){
+    fun help(){
+        print("Apakah Ada Pertanyaan ?(y/n)")
+        val faq = readLine()
+        if(faq == "y" || faq == "Y"){
+            quest()
+        }else{
+            print("Terima Kasih Telah Berlangganan dengan kami")
+        }
+    }
+    fun quest(){
+        print("Your Question : ")
+        val anda = readLine()
+        answer("$anda")
+    }
+    fun answer(anda : String){
+        when(anda){
+            "kenapa harus disini" -> println("Karena Disi telah terakreditasi A")
+            "apa kenggulan disini" -> println("lulusan sini dah ke luar negri")
+            "quit" -> quit()
+        }
+        quest()
+    }
+    fun quit(){
+        print("Sayonara")
+        System.exit(-1)
+    }
 }
